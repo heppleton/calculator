@@ -1,0 +1,198 @@
+html {
+    /*background: url("../images/woodgrain3.jpg") no-repeat;
+    background-size: initial;
+    background-position-x: center;
+    background-position-y: center;
+    background-attachment: fixed;*/
+    overflow: hidden;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Tahoma, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    user-select: none;
+}
+
+.calculator {
+    height: 600px;
+    width: 340px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 200px 360px;
+    background-image: linear-gradient(170deg, #333, #222);
+    border-bottom-right-radius: 4.5%100%;
+    border-bottom-left-radius: 4.5%100%;
+    border-top-left-radius: 2%50%;
+    border-top-right-radius: 2%50%;
+    filter: drop-shadow(40px 50px 30px #555);
+    box-shadow: 2px 2px 1px #555 inset;
+}
+
+.screen-outer-border {
+    grid-area: 1 / 1 / span 1 / span 1;
+    padding: 8px;
+    box-sizing: border-box;        
+    background-image: linear-gradient(170deg, #fff, #ddd, #bbb, #888, #555, #888);
+    box-shadow: 3px 3px 3px #000;
+    border-radius: 3px;
+}
+
+.screen-inner-border {
+    padding: 5px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 45px 45px 84px;
+    background-color: #000;
+}
+
+.screen-upper-spacer{
+    grid-area: 1 / 1 / span 1 / span 1;
+}
+
+.screen {
+    grid-area: 2 / 1 / span 1 / span 1;
+}
+
+.screen-lower-spacer {
+    grid-area: 3 / 1 / span 1 / span 1;
+    display: flex;
+    align-items: flex-end;
+}
+
+.nameplate {
+    background-color: #000;
+    color: #ddd;
+    font-size: 12px;
+    font-weight: bold;
+    font-variant: small-caps;
+    font-family: serif;
+    padding: 4px;
+    margin: 3px;
+}
+
+.keyboard {
+    grid-area: 2 / 1 / span 1 / span 1;
+    padding: 10px 20px 20px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-rows: 240px 80px;
+    background-image: linear-gradient(170deg, #ddc, #ccb, #bba);
+    box-shadow: inset 0 0 4px rgb(128, 128, 128);
+    border-bottom-right-radius: 2.5%100%;
+    border-bottom-left-radius: 2.5%100%;
+}
+
+.upper-keys {
+    grid-area: 1 / 1 / span 1 / span 1;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: repeat(4, 50px);
+    grid-template-rows: repeat(4, 50px);
+    gap: 20px;
+}
+
+.lower-keys {
+    grid-area: 2 / 1 / span 1 / span 1;
+    padding-top: 40px;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 85px 50px 85px;
+    grid-template-rows: 50px;
+    gap: 20px;
+}
+
+.key {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.key:active {
+    filter: brightness(98%);
+    box-shadow: inset 0px 0px 2px rgb(100, 100, 100);
+    border: none;
+}
+
+.pressed {
+    filter: brightness(98%);
+    box-shadow: inset 0px 0px 2px rgb(100, 100, 100) !important;
+}
+
+.key:hover {
+    cursor: pointer;
+}
+
+.blue {
+    box-shadow: 5px 7px 8px 0px rgb(100, 100, 100), 1px 1px 1px rgb(22, 203, 255) inset; /*px*/
+    background-image: linear-gradient(170deg, rgb(0, 173, 245), rgb(2, 183, 255)); /*px*/
+    color: white;
+}
+
+.white {
+    box-shadow: 5px 7px 8px 0px rgb(100, 100, 100), 1px 1px 1px rgb(255, 255, 255) inset; /*px*/
+    background-image: linear-gradient(170deg, rgb(225, 225, 225), rgb(245, 245, 245)); /*px*/
+    color: black;
+}
+
+.orange {
+    box-shadow: 5px 7px 8px 0px rgb(100, 100, 100), 1px 1px 1px rgb(255, 186, 20) inset; /*px*/
+    background-image: linear-gradient(170deg, rgb(245, 156, 0), rgb(255, 166, 0)); /*px*/
+    color: black;
+}
+
+/*Display*/
+.main-display {
+    display: grid;
+    grid-template-columns: repeat(9, 21px);
+    justify-content: center;
+    padding: 4px;
+    gap: 9px;
+}
+
+.digit {
+    display: grid;
+    grid-template-columns: 3px 10px 3px 2px 3px;
+    grid-template-rows: 3px 12px 3px 12px 3px 4px;
+    gap: 0;
+    transform: skew(-5deg);
+
+}
+
+.glow {
+    filter: drop-shadow(0px 0px 25px orange) drop-shadow(0px 22px 50px orange);
+}
+
+.segment {
+    background-color: rgb(56, 33, 0);
+}
+
+.lit {
+    background-color: orange;
+}
+
+.a {grid-area: 1 / 1 / span 1 / span 3;}
+.b {grid-area: 1 / 3 / span 3 / span 1;}
+.c {grid-area: 3 / 3 / span 3 / span 1;}
+.d {grid-area: 5 / 1 / span 1 / span 3;}
+.e {grid-area: 3 / 1 / span 3 / span 1;}
+.f {grid-area: 1 / 1 / span 3 / span 1;}
+.g {grid-area: 3 / 1 / span 1 / span 3;}
+.dp {
+    grid-area: 6 / 5 / span 1 / span 1;
+    clip-path: circle(50%);
+}
+
+.a, .d, .g {
+    clip-path: polygon(25% 0%, 75% 0%, 87.5% 50%, 75% 100%, 25% 100%, 17.5% 50%);
+}
+
+.b, .c, .e, .f {
+    clip-path: polygon(100% 25%, 100% 75%, 50% 87.5%, 0% 75%, 0% 25%, 50% 17.5%);
+}
