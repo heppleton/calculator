@@ -153,7 +153,7 @@ body {
     grid-template-columns: repeat(9, 21px);
     justify-content: center;
     padding: 4px;
-    gap: 9px;
+    gap: 8px;
 }
 
 .digit {

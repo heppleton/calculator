@@ -1,13 +1,3 @@
-/*
-Change Requests:
-32: Fix leading zeros on negative numbers.
-34: The number rounding takes place on the results, not only the number displayed.
-    This may result in wrong values if the result of a operation is used as the input
-    for another operation.
-35: Blinking display when screen full and user attempts input.
-37: Generally clean up code?
-*/
-
 //Events & Inputs
 window.addEventListener("load", () => { updateDisplay("0") });
 
@@ -38,8 +28,8 @@ calculatorKey.forEach(key => key.addEventListener("click", (event) => {
 }));
 
 const INPUTLOOKUP = {"%": calculatePercent, "-": addOperator, "+": addOperator,
-    "*": addOperator, "/": addOperator, ".": addDecimal, "=": checkInput, 
-    "Enter": checkInput, "Delete": clearEntry, "c": clear, "Backspace": backspace};
+    "*": addOperator, "/": addOperator, ".": addDecimal, "=": checkCompleteSum, 
+    "Enter": checkCompleteSum, "Delete": clearEntry, "c": clear, "Backspace": backspace};
 
 function inputHandler(input) {
     if(/([0-9])/.test(input)) {
@@ -73,7 +63,6 @@ function operate() {
             break;
     }
 
-    currentValue = Number(parseFloat(currentValue).toFixed(2));
     result = currentValue.toString();
     currentValue = "";
     storedValue = "";
@@ -100,20 +89,27 @@ function addDecimal(inputValue) {
     if(currentValue == "" || currentValue == "0") {
         currentValue = "0.";
         result = "";
-        updateDisplay(currentValue);
-        return;
+    } else if(currentValue == "-0") {
+        currentValue = "-0.";
+    } else {
+        currentValue += inputValue;
     }
-    currentValue += inputValue;
     updateDisplay(currentValue);
 }
 
 function addNumber(inputValue) {
     if(currentValue != "" && currentValue.match(/[^.]/g).length == 9) {
+        clearLitGlowElements();
+        setTimeout(() => {
+            updateDisplay(currentValue);
+        }, 50);
         return;
     }
     if(currentValue == "" || currentValue == "0") {
         currentValue = inputValue;
         result = "";
+    } else if(currentValue == "-0") {
+        currentValue = "-" + inputValue;
     } else {
         currentValue += inputValue;
     }
@@ -122,8 +118,8 @@ function addNumber(inputValue) {
 
 function addOperator(input) {
     if(currentValue == "" && result == "" && input == "-" ) {
-        currentValue = "-";
-        console.log(currentValue);
+        currentValue = "-0";
+        result = "";
         updateDisplay(currentValue);
         return;
     }
@@ -140,10 +136,9 @@ function addOperator(input) {
     storedValue = (currentValue || result);
     currentValue = "";
     result = "";
-    updateDisplay(storedValue);
 }
 
-function checkInput() {
+function checkCompleteSum() {
     if(currentValue == "") {
         return;
     }
@@ -182,6 +177,11 @@ const DIGITENCODINGS = {"-":1, "0":126, "1":48, "2":109, "3":121, "4":51,
     "y":59, "B":127, "E":79, "H":55, "I":6, "N":118, "O":126, "S": 91, " ": 0};
 
 function updateDisplay(value) {
+    if(result) {
+        value = Number(parseFloat(value).toFixed(2));
+        value = value.toString();
+    }
+
     if(value.match(/[^.]/g).length > 9) {
         value = "too long";
         currentValue = "";
